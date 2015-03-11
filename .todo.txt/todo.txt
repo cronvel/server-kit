@@ -1,0 +1,2 @@
+remove that oldschool revealing pattern from errorDocument.js @code
+upgrade 'ws' module dependency @dependencies
