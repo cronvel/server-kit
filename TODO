@@ -1,0 +1,24 @@
+
+
+
+== Server ==
+
+- websocket: ws (OK)
+- socket.io
+- https://
+- cluster
+- wss://
+- graceful stop (stop accepting request, but wait that every pending requests are completed before stopping the server and the app)
+
+
+
+== Router ==
+
+- in-memory cache, fs cache
+- gzip/deflate
+- automap (find files to create mapRoute automatically)
+- watcher & module reload (80%)
+- CGI (30%)
+- FastCGI/php-fpm
+
+
