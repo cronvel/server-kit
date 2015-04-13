@@ -14,7 +14,7 @@ if ( process.argv.length > 2 )
 
 var count = 0 ;
 
-server.createServer( port , { ws: true , verbose: true , catchErrors: true } , function( client ) {
+server.createServer( { port: port , ws: true , verbose: true , catchErrors: true } , function( client ) {
 	//console.log( client.websocket ) ;
 	
 	var id = count ++ ;

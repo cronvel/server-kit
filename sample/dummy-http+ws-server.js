@@ -14,7 +14,7 @@ if ( process.argv.length > 2 )
 
 var count = 0 ;
 
-server.createServer( port , { http: true , ws: true , verbose: true , catchErrors: true } , function( client ) {
+server.createServer( { port: port , http: true , ws: true , verbose: true , catchErrors: true } , function( client ) {
 	
 	if ( client.protocol === 'http' )
 	{

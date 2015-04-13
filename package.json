@@ -1,6 +1,6 @@
 {
   "name": "server-kit",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Minimalistic HTTP and Websocket server and router.",
   "main": "lib/server.js",
   "directories": {
@@ -23,7 +23,10 @@
   },
   "keywords": [
     "server",
-    "router"
+    "router",
+    "http",
+    "ws",
+    "websocket"
   ],
   "author": "Cédric Ronvel",
   "license": "MIT",

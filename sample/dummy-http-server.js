@@ -13,7 +13,7 @@ if ( process.argv.length > 2 )
 
 
 
-server.createServer( port , { http: true , verbose: true , catchErrors: true } , function( client ) {
+server.createServer( { port: port , http: true , verbose: true , catchErrors: true } , function( client ) {
 	//console.log( arguments ) ;
 	client.response.writeHeader( 200 ) ;
 	client.response.end( 'Plop.' ) ;
