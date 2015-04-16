@@ -14,14 +14,19 @@ if ( process.argv.length > 2 )
 
 var count = 0 ;
 
-server.createServer( { port: port , http: true , ws: true , verbose: true , catchErrors: true } , function( client ) {
+server.createServer( { port: port , http: true , ws: true , verbose: true , catchErrors: false } , function( client ) {
 	
-	if ( client.protocol === 'http' )
+	if ( client.type === 'http' )
 	{
 		client.response.writeHeader( 200 ) ;
 		client.response.end( 'Plop.' ) ;
 	}
-	else if ( client.protocol === 'ws' )
+	else if ( client.type === 'http.upgrade' )
+	{
+		// Accept all websocket connection, regardless of headers
+		client.response.accept( true ) ;
+	}
+	else if ( client.type === 'ws' )
 	{
 		var id = count ++ ;
 		
@@ -41,6 +46,11 @@ server.createServer( { port: port , http: true , ws: true , verbose: true , catc
 			
 			console.log( "Client #" + id + " disconnected" ) ;
 		} ) ;
+	}
+	else
+	{
+		client.response.writeHeader( 400 ) ;
+		client.response.end( "This server do not handle " + client.type ) ;
 	}
 } ) ;
 

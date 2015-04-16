@@ -13,8 +13,15 @@ if ( process.argv.length > 2 )
 
 
 
-server.createServer( { port: port , http: true , verbose: true , catchErrors: true } , function( client ) {
-	//console.log( arguments ) ;
+server.createServer( { port: port , http: true , verbose: true , catchErrors: false } , function( client ) {
+	
+	if ( client.type !== 'http' )
+	{
+		client.response.writeHeader( 400 ) ;
+		client.response.end( "This server do not handle " + client.type ) ;
+		return ;
+	}
+	
 	client.response.writeHeader( 200 ) ;
 	client.response.end( 'Plop.' ) ;
 } ) ;

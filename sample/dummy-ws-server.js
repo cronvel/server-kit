@@ -14,10 +14,18 @@ if ( process.argv.length > 2 )
 
 var count = 0 ;
 
-server.createServer( { port: port , ws: true , verbose: true , catchErrors: true } , function( client ) {
-	//console.log( client.websocket ) ;
+server.createServer( { port: port , ws: true , verbose: true , catchErrors: false } , function( client ) {
 	
-	var id = count ++ ;
+	var id ;
+	
+	if ( client.type !== 'ws' )
+	{
+		client.response.writeHeader( 400 ) ;
+		client.response.end( "This server do not handle " + client.type ) ;
+		return ;
+	}
+	
+	id = count ++ ;
 	
 	console.log( "Client #" + id + " connected" ) ;
 	
