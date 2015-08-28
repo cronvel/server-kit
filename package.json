@@ -1,13 +1,13 @@
 {
   "name": "server-kit",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Minimalistic HTTP and Websocket server and router.",
   "main": "lib/server.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "ws": "^0.7.1"
+    "ws": "^0.8.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
