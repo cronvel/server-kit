@@ -7,7 +7,7 @@
     "test": "test"
   },
   "dependencies": {
-    "dicer": "^0.2.4",
+    "server-kit-dicer": "^0.2.4",
     "ws": "^0.8.0"
   },
   "devDependencies": {
