@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "logger-kit": "^0.1.8",
     "server-kit-dicer": "^0.2.4",
     "ws": "^0.8.0"
   },
