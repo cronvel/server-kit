@@ -7,7 +7,7 @@
     "test": "test"
   },
   "dependencies": {
-    "logfella": "^0.1.19",
+    "logfella": "^0.3.8",
     "server-kit-dicer": "^0.2.4",
     "ws": "^0.8.0"
   },
