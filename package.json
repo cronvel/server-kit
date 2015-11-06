@@ -1,6 +1,6 @@
 {
   "name": "server-kit",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "description": "Minimalistic HTTP and Websocket server and router.",
   "main": "lib/server.js",
   "directories": {
