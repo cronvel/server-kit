@@ -1,13 +1,13 @@
 {
   "name": "server-kit",
-  "version": "0.2.30",
+  "version": "0.2.31",
   "description": "Minimalistic HTTP and Websocket server and router.",
   "main": "lib/server.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "logfella": "^0.3.23",
+    "logfella": "^0.3.25",
     "server-kit-dicer": "^0.2.4",
     "ws": "^1.0.1"
   },
