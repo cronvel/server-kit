@@ -1,8 +1,11 @@
 {
   "name": "server-kit",
-  "version": "0.2.41",
+  "version": "0.3.0",
   "description": "Minimalistic HTTP and Websocket server and router.",
   "main": "lib/server.js",
+  "engines": {
+    "node": ">=4.5.0"
+  },
   "directories": {
     "test": "test"
   },
@@ -17,7 +20,7 @@
     "mocha": "^2.5.3"
   },
   "scripts": {
-    "test": "mocha -R dot"
+    "test": "tea-time -R dot"
   },
   "repository": {
     "type": "git",
