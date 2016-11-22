@@ -18,7 +18,7 @@ server.createServer( { port: port , http: true , verbose: true , catchErrors: fa
 	if ( client.type !== 'http' )
 	{
 		client.response.writeHeader( 400 ) ;
-		client.response.end( "This server do not handle " + client.type ) ;
+		client.response.end( "This server does not handle " + client.type ) ;
 		return ;
 	}
 	

@@ -21,7 +21,7 @@ server.createServer( { port: port , ws: true , verbose: true , catchErrors: fals
 	if ( client.type !== 'ws' )
 	{
 		client.response.writeHeader( 400 ) ;
-		client.response.end( "This server do not handle " + client.type ) ;
+		client.response.end( "This server does not handle " + client.type ) ;
 		return ;
 	}
 	

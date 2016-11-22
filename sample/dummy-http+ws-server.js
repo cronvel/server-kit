@@ -50,7 +50,7 @@ server.createServer( { port: port , http: true , ws: true , verbose: true , catc
 	else
 	{
 		client.response.writeHeader( 400 ) ;
-		client.response.end( "This server do not handle " + client.type ) ;
+		client.response.end( "This server does not handle " + client.type ) ;
 	}
 } ) ;
 
