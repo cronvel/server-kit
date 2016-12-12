@@ -1,6 +1,6 @@
 {
   "name": "server-kit",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Minimalistic HTTP and Websocket server and router.",
   "main": "lib/server.js",
   "engines": {
@@ -11,14 +11,13 @@
   },
   "dependencies": {
     "logfella": "^0.3.46",
-    "mocha": "^3.2.0",
     "server-kit-dicer": "^0.4.0",
     "ws": "^1.1.1"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
     "jshint": "^2.9.4",
-    "mocha": "^3.1.2"
+    "mocha": "^3.2.0"
   },
   "scripts": {
     "test": "tea-time -R dot"
