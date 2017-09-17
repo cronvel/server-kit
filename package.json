@@ -37,5 +37,13 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cronvel/server-kit/issues"
+  },
+  "copyright": {
+    "title": "Server Kit",
+    "years": [
+      2015,
+      2017
+    ],
+    "owner": "Cédric Ronvel"
   }
 }
