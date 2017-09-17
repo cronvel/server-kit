@@ -1,6 +1,6 @@
 {
   "name": "server-kit",
-  "version": "0.4.4",
+  "version": "0.5.0",
   "description": "Minimalistic HTTP and Websocket server and router.",
   "main": "lib/server.js",
   "engines": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "logfella": "^0.3.55",
     "server-kit-dicer": "^0.4.0",
-    "ws": "^1.1.4"
+    "ws": "^3.2.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
