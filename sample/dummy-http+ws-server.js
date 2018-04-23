@@ -57,7 +57,7 @@ server.createServer( { port: port , http: true , ws: true , verbose: true , catc
 		
 		client.websocket.on( 'message' , function( message ) {
 			
-			console.log( "Received from #" + id + ": " + message ) ;
+			console.log( "Received from #" + id + ": '" + message + "' " + ( typeof message ) + ' ' + message.constructor.name ) ;
 			
 			client.websocket.send( message.split( '' ).reverse().join( '' ) , function ack( error ) {
 				if ( error ) { console.log( "Error:" , error ) ; return ; }
