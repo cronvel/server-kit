@@ -1,21 +1,21 @@
 #! /usr/bin/env node
 /*
 	Server Kit
-	
-	Copyright (c) 2015 - 2017 Cédric Ronvel
-	
+
+	Copyright (c) 2015 - 2018 Cédric Ronvel
+
 	The MIT License (MIT)
-	
+
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal
 	in the Software without restriction, including without limitation the rights
 	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 	copies of the Software, and to permit persons to whom the Software is
 	furnished to do so, subject to the following conditions:
-	
+
 	The above copyright notice and this permission notice shall be included in all
 	copies or substantial portions of the Software.
-	
+
 	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,27 +24,32 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 */
-var server = require( '../lib/server.js' ) ;
- 
+
+"use strict" ;
+
+
+
+var serverKit = require( '..' ) ;
+
 // Set the port, get it from command line if necessary
 var port = 8080 ;
 
-if ( process.argv.length > 2 )
-{
+if ( process.argv.length > 2 ) {
 	port = process.argv[ 2 ] ;
 }
 
 
 
-server.createServer( { port: port , http: true , verbose: true , catchErrors: false } , function( client ) {
-	
-	if ( client.type !== 'http' )
-	{
+serverKit.createServer( {
+	port: port , http: true , verbose: true , catchErrors: false
+} , ( client ) => {
+
+	if ( client.type !== 'http' ) {
 		client.response.writeHeader( 400 ) ;
 		client.response.end( "This server does not handle " + client.type ) ;
 		return ;
 	}
-	
+
 	client.response.writeHeader( 200 ) ;
 	client.response.end( 'Plop.' ) ;
 } ) ;

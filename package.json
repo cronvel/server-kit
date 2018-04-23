@@ -1,10 +1,10 @@
 {
   "name": "server-kit",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Minimalistic HTTP and Websocket server and router.",
-  "main": "lib/server.js",
+  "main": "lib/serverKit.js",
   "engines": {
-    "node": ">=4.5.0"
+    "node": ">=6.0.0"
   },
   "directories": {
     "test": "test"

@@ -31,7 +31,7 @@
 
 
 
-var server = require( '../lib/server.js' ) ;
+var serverKit = require( '..' ) ;
 var expect = require( 'expect.js' ) ;
 
 
