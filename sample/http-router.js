@@ -33,6 +33,7 @@ var serverKit = require( '..' ) ;
 var Router = serverKit.Router ;
 var CaptureRouter = serverKit.CaptureRouter ;
 var FileRouter = serverKit.FileRouter ;
+var File = serverKit.File ;
 var ModuleRouter = serverKit.ModuleRouter ;
 var CgiRouter = serverKit.CgiRouter ;
 
@@ -78,7 +79,8 @@ function fallback( client ) {
 
 
 var router = new Router( {
-	"/": slash ,
+	//"/": slash ,
+	"/": new File( __dirname + '/dummy/hello.js' ) ,
 	article: article ,
 	user: new CaptureRouter( 'userId' , {
 		"/": user ,
@@ -90,6 +92,7 @@ var router = new Router( {
 		}
 	} ,
 	files: new FileRouter( __dirname ) ,
+	hello: new File( __dirname + '/dummy/hello.js' ) ,
 	modules: new ModuleRouter( __dirname + '/dummy' ) ,
 	cgi: new CgiRouter( __dirname + '/cgi' ) ,
 //	"*": wild ,
