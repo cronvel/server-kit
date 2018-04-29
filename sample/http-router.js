@@ -31,6 +31,9 @@
 
 var serverKit = require( '..' ) ;
 var Router = serverKit.Router ;
+var BaseRouter = serverKit.BaseRouter ;
+var ProtocolRouter = serverKit.ProtocolRouter ;
+var MethodRouter = serverKit.MethodRouter ;
 var CaptureRouter = serverKit.CaptureRouter ;
 var FileRouter = serverKit.FileRouter ;
 var File = serverKit.File ;
@@ -76,6 +79,27 @@ function fallback( client ) {
 	client.response.end( "fallback: " + client.pathParts.slice( client.walkIndex ).join( '/' ) ) ;
 }
 
+function getRes( client ) {
+	client.response.end( "GET res" ) ;
+}
+
+function postRes( client ) {
+	client.response.end( "POST res" ) ;
+}
+
+function upgrade( client ) {
+	console.log( "upgrade" ) ;
+	client.response.accept( true ) ;
+}
+
+function ws( client ) {
+	console.log( "ws" ) ;
+	client.websocket.on( 'message' , ( message ) => {
+		if ( typeof message !== 'string' ) { message = '' + message ; }
+		client.websocket.send( message.split( '' ).reverse().join( '' ) ) ;
+	} ) ;
+}
+
 
 
 var router = new Router( {
@@ -91,6 +115,15 @@ var router = new Router( {
 			page: pathToPage ,
 		}
 	} ,
+	dynamic: new ProtocolRouter( {
+		http: new File( __dirname + '/dummy/hello.js' ) ,
+		"http.upgrade": upgrade ,
+		ws: ws
+	} ) ,
+	res: new MethodRouter( {
+		GET: getRes ,
+		POST: postRes
+	} ) ,
 	files: new FileRouter( __dirname ) ,
 	hello: new File( __dirname + '/dummy/hello.js' ) ,
 	modules: new ModuleRouter( __dirname + '/dummy' ) ,
@@ -99,17 +132,20 @@ var router = new Router( {
 	".": fallback ,
 } ) ;
 
+//router = new BaseRouter( '/inside/www' , router ) ;
 
 
 serverKit.createServer( {
-	port: port , http: true , verbose: true , catchErrors: false
+	port: port , http: true , ws: true , verbose: true , catchErrors: false
 } , ( client ) => {
 
+	/*
 	if ( client.type !== 'http' ) {
 		client.response.writeHeader( 400 ) ;
 		client.response.end( "This server does not handle " + client.type ) ;
 		return ;
 	}
+	//*/
 	
 	router.handle( client ) ;
 } ) ;
