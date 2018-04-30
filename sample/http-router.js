@@ -109,6 +109,34 @@ function ws( client ) {
 	} ) ;
 }
 
+function notFound( client ) {
+	var body = "<h1>Hey! Whatcha ya da'ing?</h1>" ;
+	
+	try {
+		client.response.writeHead( 404 , "Whatcha ya da'ing?" ) ;
+	}
+	catch ( error ) {}
+	
+	try {
+		client.response.end( body ) ;
+	}
+	catch ( error ) {}
+}
+
+function notFound2( client ) {
+	var body = "<h1>Arya craiz'?</h1>" ;
+	
+	try {
+		client.response.writeHead( 404 , "Arya craiz'?" ) ;
+	}
+	catch ( error ) {}
+	
+	try {
+		client.response.end( body ) ;
+	}
+	catch ( error ) {}
+}
+
 
 
 var router = new Router( {
@@ -122,6 +150,9 @@ var router = new Router( {
 	path: {
 		to: {
 			page: pathToPage ,
+			"!": {
+				notFound: notFound2
+			}
 		}
 	} ,
 	dynamic: new ProtocolRouter( {
@@ -143,6 +174,9 @@ var router = new Router( {
 	cgi: new CgiRouter( __dirname + '/cgi' ) ,
 //	"*": wild ,
 	".": fallback ,
+	"!!": {
+		notFound: notFound
+	}
 } ) ;
 
 //router = new BaseRouter( '/inside/www' , router ) ;
