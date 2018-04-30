@@ -33,6 +33,7 @@ var serverKit = require( '..' ) ;
 var Router = serverKit.Router ;
 var BaseRouter = serverKit.BaseRouter ;
 var ProtocolRouter = serverKit.ProtocolRouter ;
+var DomainRouter = serverKit.DomainRouter ;
 var MethodRouter = serverKit.MethodRouter ;
 var CaptureRouter = serverKit.CaptureRouter ;
 var FileRouter = serverKit.FileRouter ;
@@ -87,6 +88,14 @@ function postRes( client ) {
 	client.response.end( "POST res" ) ;
 }
 
+function getLocalhost( client ) {
+	client.response.end( "get localhost" ) ;
+}
+
+function getLoopback( client ) {
+	client.response.end( "get loopback" ) ;
+}
+
 function upgrade( client ) {
 	console.log( "upgrade" ) ;
 	client.response.accept( true ) ;
@@ -123,6 +132,10 @@ var router = new Router( {
 	res: new MethodRouter( {
 		GET: getRes ,
 		POST: postRes
+	} ) ,
+	dom: new DomainRouter( {
+		localhost: getLocalhost ,
+		"127.0.0.1": getLoopback
 	} ) ,
 	files: new FileRouter( __dirname ) ,
 	hello: new File( __dirname + '/dummy/hello.js' ) ,
