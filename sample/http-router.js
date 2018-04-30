@@ -41,6 +41,8 @@ var File = serverKit.File ;
 var ModuleRouter = serverKit.ModuleRouter ;
 var CgiRouter = serverKit.CgiRouter ;
 
+var log = require( 'logfella' ).global.use( 'sample' ) ;
+
 
 
 // Set the port, get it from command line if necessary
@@ -60,6 +62,10 @@ function article( client ) {
 	client.response.end( "article: " + client.pathParts.slice( client.walkIndex ).join( '/' ) ) ;
 }
 
+function userList( client ) {
+	client.response.end( "users: Bob, Ben, Bill, Boris." ) ;
+}
+
 function user( client ) {
 	client.response.end( "user: " + client.capture.userId + ' -- ' + client.pathParts.slice( client.walkIndex ).join( '/' ) ) ;
 }
@@ -70,6 +76,15 @@ function userProfile( client ) {
 
 function pathToPage( client ) {
 	client.response.end( "path/to/page: " + client.pathParts.slice( client.walkIndex ).join( '/' ) ) ;
+}
+
+function slowPage( client ) {
+	return new Promise( resolve => {
+		setTimeout( () => {
+			client.response.end( "slow page! " + client.pathParts.slice( client.walkIndex ).join( '/' ) ) ;
+			resolve() ;
+		} , 2000 ) ;
+	} ) ;
 }
 
 function wild( client ) {
@@ -137,19 +152,41 @@ function notFound2( client ) {
 	catch ( error ) {}
 }
 
+async function loggerMiddleware( client , next ) {
+	log.warning( "This is the logger middleware! starting now" ) ;
+	await next() ;
+	log.warning( "Logger middleware ending now" ) ;
+}
+
+async function bobMiddleware( client , next ) {
+	client.response.setHeader( 'bob' , 'Bob!' ) ;
+	log.info( "Bob?" ) ;
+	await next() ;
+	log.info( "Bob!" ) ;
+}
+
 
 
 var router = new Router( {
+	"^": [
+		loggerMiddleware ,
+		bobMiddleware
+	] ,
 	//"/": slash ,
 	"/": new File( __dirname + '/dummy/hello.js' ) ,
 	article: article ,
-	user: new CaptureRouter( 'userId' , {
-		"/": user ,
-		profile: userProfile
-	} ) ,
+	user: {
+		"/" : userList ,
+		".": new CaptureRouter( 'userId' , {
+			"^": loggerMiddleware ,
+			"/": user ,
+			profile: userProfile
+		} ) ,
+	} ,
 	path: {
 		to: {
 			page: pathToPage ,
+			"slow-page": slowPage ,
 			"!": {
 				notFound: notFound2
 			}
@@ -173,7 +210,7 @@ var router = new Router( {
 	modules: new ModuleRouter( __dirname + '/dummy' ) ,
 	cgi: new CgiRouter( __dirname + '/cgi' ) ,
 //	"*": wild ,
-	".": fallback ,
+//	".": fallback ,
 	"!!": {
 		notFound: notFound
 	}
@@ -184,16 +221,9 @@ var router = new Router( {
 
 serverKit.createServer( {
 	port: port , http: true , ws: true , verbose: true , catchErrors: false
-} , ( client ) => {
-
-	/*
-	if ( client.type !== 'http' ) {
-		client.response.writeHeader( 400 ) ;
-		client.response.end( "This server does not handle " + client.type ) ;
-		return ;
-	}
-	//*/
-	
-	router.handle( client ) ;
+} , async ( client ) => {
+	log.info( "Starting handler" ) ;
+	await router.handle( client ) ;
+	log.info( "Done handler" ) ;
 } ) ;
 
