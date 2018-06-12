@@ -33,7 +33,7 @@ var serverKit = require( '..' ) ;
 var Router = serverKit.Router ;
 var BaseRouter = serverKit.BaseRouter ;
 var ProtocolRouter = serverKit.ProtocolRouter ;
-var DomainRouter = serverKit.DomainRouter ;
+var HostnameRouter = serverKit.HostnameRouter ;
 var MethodRouter = serverKit.MethodRouter ;
 var CaptureRouter = serverKit.CaptureRouter ;
 var FileRouter = serverKit.FileRouter ;
@@ -201,7 +201,7 @@ var router = new Router( {
 		GET: getRes ,
 		POST: postRes
 	} ) ,
-	dom: new DomainRouter( {
+	dom: new HostnameRouter( {
 		localhost: getLocalhost ,
 		"127.0.0.1": getLoopback
 	} ) ,
