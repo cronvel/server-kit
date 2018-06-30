@@ -40,6 +40,7 @@ var FileRouter = serverKit.FileRouter ;
 var File = serverKit.File ;
 var ModuleRouter = serverKit.ModuleRouter ;
 var CgiRouter = serverKit.CgiRouter ;
+var CorsMiddleware = serverKit.CorsMiddleware ;
 
 var log = require( 'logfella' ).global.use( 'sample' ) ;
 
@@ -169,6 +170,7 @@ async function bobMiddleware( client , next ) {
 
 var router = new Router( {
 	"^": [
+		new CorsMiddleware() ,
 		loggerMiddleware ,
 		bobMiddleware
 	] ,
