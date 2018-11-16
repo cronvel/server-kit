@@ -42,7 +42,7 @@ if ( process.argv.length > 2 ) {
 
 serverKit.createServer( {
 	port: port , http: true , verbose: true , catchErrors: false
-} , ( client ) => {
+} , client => {
 
 	if ( client.type !== 'http' ) {
 		client.response.writeHeader( 400 ) ;
@@ -50,6 +50,8 @@ serverKit.createServer( {
 		return ;
 	}
 
+	//console.log( "Client query:" , client.query ) ;
+	
 	client.response.writeHeader( 200 ) ;
 	client.response.end( 'Plop.' ) ;
 } ) ;
