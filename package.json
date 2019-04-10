@@ -15,7 +15,7 @@
     "nextgen-events": "^1.1.0",
     "qs-kit": "^0.6.4",
     "server-kit-dicer": "^0.4.0",
-    "ws": "^6.2.0"
+    "ws": "^6.2.1"
   },
   "devDependencies": {
     "expect.js": "^0.3.1"
