@@ -2,7 +2,7 @@
 /*
 	Server Kit
 
-	Copyright (c) 2015 - 2019 Cédric Ronvel
+	Copyright (c) 2015 - 2020 Cédric Ronvel
 
 	The MIT License (MIT)
 
