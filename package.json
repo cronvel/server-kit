@@ -18,9 +18,7 @@
     "seventh": "^0.7.34",
     "ws": "^7.2.1"
   },
-  "devDependencies": {
-    "expect.js": "^0.3.1"
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "tea-time -R dot"
   },

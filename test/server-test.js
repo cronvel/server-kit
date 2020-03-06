@@ -24,25 +24,16 @@
 	SOFTWARE.
 */
 
-/* jshint unused:false */
 /* global describe, it, before, after */
 
 "use strict" ;
 
 
 
-var serverKit = require( '..' ) ;
-var expect = require( 'expect.js' ) ;
+const serverKit = require( '..' ) ;
 
 
 
-
-
-			/* Tests */
-
-
-
-describe( "Take time..." , function() {
-	
+describe( "Take time..." , () => {
 	it( "... to code tests" ) ;
 } ) ;
