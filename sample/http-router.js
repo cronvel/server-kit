@@ -218,7 +218,7 @@ var router = new Router( {
 		remoteBaseQuery: {
 			engine: 'g1' ,
 			name: '' ,
-			key: '5KF3cB1d'
+			key: 'thekey'
 		}
 	} ) ,
 	modules: new ModuleRouter( __dirname + '/dummy' ) ,
