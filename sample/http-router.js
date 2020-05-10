@@ -212,7 +212,9 @@ var router = new Router( {
 	hello: new File( __dirname + '/dummy/hello.js' ) ,
 	proxy: new ProxyRouter( {
 		cacheDirectory: __dirname + '/proxy-cache' ,
-		remoteBaseUrl: "https://texttospeech.responsivevoice.org/v1/text:synthesize" ,
+		remoteProtocol: 'http' ,
+		remoteHostname: 'texttospeech.responsivevoice.org' ,
+		remoteBasePath: '/v1/text:synthesize' ,
 		remoteBaseQuery: {
 			engine: 'g1' ,
 			name: '' ,
