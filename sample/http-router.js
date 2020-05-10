@@ -29,25 +29,26 @@
 
 
 
-var serverKit = require( '..' ) ;
-var Router = serverKit.Router ;
-var BaseRouter = serverKit.BaseRouter ;
-var ProtocolRouter = serverKit.ProtocolRouter ;
-var HostnameRouter = serverKit.HostnameRouter ;
-var MethodRouter = serverKit.MethodRouter ;
-var CaptureRouter = serverKit.CaptureRouter ;
-var FileRouter = serverKit.FileRouter ;
-var File = serverKit.File ;
-var ModuleRouter = serverKit.ModuleRouter ;
-var CgiRouter = serverKit.CgiRouter ;
-var CorsMiddleware = serverKit.CorsMiddleware ;
+const serverKit = require( '..' ) ;
+const Router = serverKit.Router ;
+const BaseRouter = serverKit.BaseRouter ;
+const ProtocolRouter = serverKit.ProtocolRouter ;
+const HostnameRouter = serverKit.HostnameRouter ;
+const MethodRouter = serverKit.MethodRouter ;
+const CaptureRouter = serverKit.CaptureRouter ;
+const FileRouter = serverKit.FileRouter ;
+const File = serverKit.File ;
+const ProxyRouter = serverKit.ProxyRouter ;
+const ModuleRouter = serverKit.ModuleRouter ;
+const CgiRouter = serverKit.CgiRouter ;
+const CorsMiddleware = serverKit.CorsMiddleware ;
 
-var log = require( 'logfella' ).global.use( 'sample' ) ;
+const log = require( 'logfella' ).global.use( 'sample' ) ;
 
 
 
 // Set the port, get it from command line if necessary
-var port = 8080 ;
+const port = 8080 ;
 
 if ( process.argv.length > 2 ) {
 	port = process.argv[ 2 ] ;
@@ -209,6 +210,15 @@ var router = new Router( {
 	} ) ,
 	files: new FileRouter( __dirname ) ,
 	hello: new File( __dirname + '/dummy/hello.js' ) ,
+	proxy: new ProxyRouter( {
+		cacheDirectory: __dirname + '/proxy-cache' ,
+		remoteBaseUrl: "https://texttospeech.responsivevoice.org/v1/text:synthesize" ,
+		remoteBaseQuery: {
+			engine: 'g1' ,
+			name: '' ,
+			key: '5KF3cB1d'
+		}
+	} ) ,
 	modules: new ModuleRouter( __dirname + '/dummy' ) ,
 	cgi: new CgiRouter( __dirname + '/cgi' ) ,
 //	"*": wild ,

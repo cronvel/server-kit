@@ -29,10 +29,10 @@
 
 
 
-var serverKit = require( '..' ) ;
+const serverKit = require( '..' ) ;
 
 // Set the port, get it from command line if necessary
-var port = 8080 ;
+const port = 8080 ;
 
 if ( process.argv.length > 2 ) {
 	port = process.argv[ 2 ] ;
@@ -55,3 +55,4 @@ serverKit.createServer( {
 	client.response.writeHeader( 200 ) ;
 	client.response.end( 'Plop.' ) ;
 } ) ;
+
