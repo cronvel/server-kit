@@ -219,6 +219,10 @@ var router = new Router( {
 			engine: 'g1' ,
 			name: '' ,
 			key: 'thekey'
+		} ,
+		upstreamHook: remoteRequest => {
+			remoteRequest.query.rate = remoteRequest.query.rate ? parseFloat( remoteRequest.query.rate ) / 2 : 0.5 ;
+			remoteRequest.query.pitch = remoteRequest.query.pitch ? parseFloat( remoteRequest.query.pitch ) / 2 : 0.5 ;
 		}
 	} ) ,
 	modules: new ModuleRouter( __dirname + '/dummy' ) ,
