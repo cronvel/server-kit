@@ -38,7 +38,7 @@ const MethodRouter = serverKit.MethodRouter ;
 const CaptureRouter = serverKit.CaptureRouter ;
 const FileRouter = serverKit.FileRouter ;
 const File = serverKit.File ;
-const ProxyRouter = serverKit.ProxyRouter ;
+const HttpProxy = serverKit.HttpProxy ;
 const ModuleRouter = serverKit.ModuleRouter ;
 const CgiRouter = serverKit.CgiRouter ;
 const CorsMiddleware = serverKit.CorsMiddleware ;
@@ -210,7 +210,7 @@ var router = new Router( {
 	} ) ,
 	files: new FileRouter( __dirname ) ,
 	hello: new File( __dirname + '/dummy/hello.js' ) ,
-	proxy: new ProxyRouter( {
+	proxy: new HttpProxy( {
 		cacheDirectory: __dirname + '/proxy-cache' ,
 		remoteProtocol: 'http' ,
 		remoteHostname: 'texttospeech.responsivevoice.org' ,

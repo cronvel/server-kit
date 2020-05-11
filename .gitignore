@@ -10,6 +10,7 @@
 *.png
 .spellcast
 build
+proxy-cache
 _build
 _templates
 _static
