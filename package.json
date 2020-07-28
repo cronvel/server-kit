@@ -1,6 +1,6 @@
 {
   "name": "server-kit",
-  "version": "0.9.33",
+  "version": "0.9.34",
   "description": "Minimalistic HTTP and Websocket server and router.",
   "main": "lib/serverKit.js",
   "engines": {
@@ -11,13 +11,13 @@
   },
   "dependencies": {
     "hash-kit": "^0.3.9",
-    "lazyness": "^1.1.1",
-    "logfella": "^1.3.7",
+    "lazyness": "^1.2.0",
+    "logfella": "^1.3.9",
     "nextgen-events": "^1.3.0",
     "qs-kit": "^0.6.5",
     "server-kit-dicer": "^0.4.0",
     "seventh": "^0.7.35",
-    "ws": "^7.2.3"
+    "ws": "^7.3.1"
   },
   "devDependencies": {},
   "scripts": {
