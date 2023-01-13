@@ -48,7 +48,7 @@ const log = require( 'logfella' ).global.use( 'sample' ) ;
 
 
 // Set the port, get it from command line if necessary
-const port = 8080 ;
+var port = 8080 ;
 
 if ( process.argv.length > 2 ) {
 	port = process.argv[ 2 ] ;
