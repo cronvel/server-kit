@@ -9,45 +9,98 @@ const serverKit = require( '..' ) ;
 const Router = serverKit.Router ;
 const FileRouter = serverKit.FileRouter ;
 
+const Logfella = require( 'logfella' ) ;
+//Logfella.global.configure( { minLevel: 'info' } ) ;
+Logfella.global.configure( { minLevel: 'verbose' } ) ;
 
-
-var port = + process.argv[ 2 ] || 8080 ;
-var root = process.argv[ 3 ] ? fs.realpathSync( process.argv[ 3 ] ) : process.cwd() ;
-
-
-
-console.log( "Simple file router.\nUsage is: server-kit-file-router [port] [root-path]" ) ;
-console.log( "Port:" , port , "\nRoot path:" , root ) ;
+const log = Logfella.global.use( 'server-kit' ) ;
 
 
 
-function slash( client ) {
-    var body = "<h1>You're on /</h1><p>You should add something after that slash, bro! ;)</p>" ;
+var port = 8080 ;
+var root = process.cwd() ;
+var listDirectory = false ;
 
-    try {
-        client.response.writeHead( 200 ) ;
-    }
-    catch ( error ) {}
 
-    try {
-        client.response.end( body ) ;
-    }
-    catch ( error ) {}
+
+// Parse command line arguments
+
+var optionName = null ;
+for ( let index = 2 ; index < process.argv.length ; index ++ ) {
+	let arg = process.argv[ index ] ;
+
+	if ( arg.startsWith( '--' ) ) {
+		optionName = arg.slice( 2 ) ;
+
+		switch ( optionName ) {
+			case 'list' :
+				listDirectory = true ;
+				optionName = null ;
+				break ;
+			default :
+				break ;
+		}
+	}
+	else {
+		switch ( optionName ) {
+			case 'port' :
+				port = + arg || 8080 ;
+				break ;
+			case 'root' :
+				root = fs.realpathSync( arg ) ;
+				break ;
+			default :
+				break ;
+		}
+
+		optionName = null ;
+	}
 }
 
 
 
-//var router = new FileRouter( __dirname ) ;
-var router = new Router( {
-    "/": slash ,
-    ".": new FileRouter( root )
-} ) ;
+console.log( "Simple file router.\nUsage is: server-kit-file-router [--port <port>] [--root <path>] [--list]" ) ;
+console.log( "Port:" , port , "\nRoot path:" , root , "\nList directory:" , listDirectory ) ;
 
 
 
-serverKit.createServer( {
-	port , http: true , verbose: true , catchErrors: false
-} , async ( client ) => {
-    await router.handle( client ) ;
-} ) ;
+function slash( client ) {
+	var body = "<h1>You're on /</h1><p>You should add something after that slash, bro! ;)</p>" ;
+
+	try {
+		client.response.writeHead( 200 ) ;
+	}
+	catch ( error ) {}
+
+	try {
+		client.response.end( body ) ;
+	}
+	catch ( error ) {}
+}
+
+
+
+var router ;
+
+if ( listDirectory ) {
+	router = new FileRouter( root , { directoryHtml: true } ) ;
+}
+else {
+	router = new Router( {
+		"/": slash ,
+		".": new FileRouter( root )
+	} ) ;
+}
+
+
+
+serverKit.createServer(
+	{
+		port ,
+		http: true ,
+		verbose: true ,
+		catchErrors: true
+	} ,
+	client => router.handle( client )
+) ;
 
