@@ -5,9 +5,11 @@
 
 
 const fs = require( 'fs' ) ;
+const path = require( 'path' ) ;
 const serverKit = require( '..' ) ;
 const Router = serverKit.Router ;
 const FileRouter = serverKit.FileRouter ;
+const File = serverKit.File ;
 
 const Logfella = require( 'logfella' ) ;
 //Logfella.global.configure( { minLevel: 'info' } ) ;
@@ -20,6 +22,7 @@ const log = Logfella.global.use( 'server-kit' ) ;
 var port = 8080 ;
 var root = process.cwd() ;
 var listDirectory = false ;
+var favicon = false ;
 
 
 
@@ -35,6 +38,11 @@ for ( let index = 2 ; index < process.argv.length ; index ++ ) {
 		switch ( optionName ) {
 			case 'list' :
 				listDirectory = true ;
+				optionName = null ;
+				break ;
+			case 'favicon' :
+			case 'fav' :
+				favicon = true ;
 				optionName = null ;
 				break ;
 			default :
@@ -59,8 +67,8 @@ for ( let index = 2 ; index < process.argv.length ; index ++ ) {
 
 
 
-console.log( "Simple file router.\nUsage is: server-kit-file-router [--port <port>] [--root <path>] [--list]" ) ;
-console.log( "Port:" , port , "\nRoot path:" , root , "\nList directory:" , listDirectory ) ;
+console.log( "Simple file router.\nUsage is: server-kit-file-router [--port <port>] [--root <path>] [--list] [--favicon|--fav]" ) ;
+console.log( "Port:" , port , "\nRoot path:" , root , "\nList directory:" , listDirectory , "\nFavicon:" , favicon ) ;
 
 
 
@@ -80,19 +88,13 @@ function slash( client ) {
 
 
 
-var router ;
+var routes = {}
 
-if ( listDirectory ) {
-	router = new FileRouter( root , { directoryHtml: true } ) ;
-}
-else {
-	router = new Router( {
-		"/": slash ,
-		".": new FileRouter( root )
-	} ) ;
-}
+routes['.'] = new FileRouter( root , { directoryHtml: listDirectory } ) ;
+if ( ! listDirectory ) { routes['/'] = slash ; }
+if ( favicon ) { routes['favicon.ico'] = new File( path.join( __dirname , '..' , '/media/favicon.ico' ) ) ; }
 
-
+var router = new Router( routes ) ;
 
 serverKit.createServer(
 	{
