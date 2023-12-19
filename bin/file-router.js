@@ -6,6 +6,7 @@
 
 const fs = require( 'fs' ) ;
 const path = require( 'path' ) ;
+const packageJson = require( '../package.json' ) 
 const serverKit = require( '..' ) ;
 const Router = serverKit.Router ;
 const FileRouter = serverKit.FileRouter ;
@@ -67,7 +68,8 @@ for ( let index = 2 ; index < process.argv.length ; index ++ ) {
 
 
 
-console.log( "Simple file router.\nUsage is: server-kit-file-router [--port <port>] [--root <path>] [--list] [--favicon|--fav]" ) ;
+console.log( "Simple File Router -- ServerKit v" + packageJson.version ) ;
+console.log( "Usage is: server-kit-file-router [--port <port>] [--root <path>] [--list] [--favicon|--fav]" ) ;
 console.log( "Port:" , port , "\nRoot path:" , root , "\nList directory:" , listDirectory , "\nFavicon:" , favicon ) ;
 
 
